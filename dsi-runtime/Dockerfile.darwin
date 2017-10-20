@@ -1,0 +1,9 @@
+FROM ibmjava:latest
+
+COPY opt /opt
+
+COPY start.sh /root/
+
+RUN ln -s /opt/ibm/java /opt/dsi/jdk
+
+CMD /root/start.sh
