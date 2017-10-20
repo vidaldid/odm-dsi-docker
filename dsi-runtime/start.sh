@@ -18,6 +18,10 @@ else
         DSI_TEMPLATE="$1"
 fi
 
+if [ ! -z "$2" ]; then
+        DSI_CATALOG_HOSTNAME="$2"
+fi
+
 echo "The DSI template $DSI_TEMPLATE is going to be used."
 
 SRV_XML="$DSI_HOME/opt/dsi/runtime/wlp/usr/servers/$DSI_TEMPLATE/server.xml"
@@ -36,6 +40,15 @@ else
         echo "$SRV_XML already exist"
 fi
 
+if [ ! -z "DSI_CATALOG_HOSTNAME" ]; then
+        BOOTSTRAP_FILE=/opt/dsi/runtime/wlp/usr/servers/$DSI_TEMPLATE/bootstrap.properties
+        echo "Modifying $BOOTSTRAP_FILE"
+        sed -i "s/ia.bootstrapEndpoints=localhost:2809/ia.bootstrapEndpoints=$DSI_CATALOG_HOSTNAME:2809/g" $BOOTSTRAP_FILE
+fi
+
 echo "The IP of the DSI server is $INTERNAL_IP"
+
+sed -i "s/ia\.host\=localhost/ia\.host\=$INTERNAL_IP/" $BOOTSTRAP_FILE
+echo "Internal IP: $INTERNAL_IP"
 
 /opt/dsi/runtime/wlp/bin/server run $DSI_TEMPLATE
