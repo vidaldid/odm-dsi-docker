@@ -90,7 +90,7 @@ docker run -p9443:9443 --name dsi-runtime dsi-runtime
 To deploy a solution and the connectivity configuration,
 the usual command line tools `solutionManager` and `connectivityManager` can be used.
 
-The script example `simple/solution_deploy.sh` can be used to deploy a simple test solution and its connectivity configuration:
+The script example `solution_deploy.sh` can be used to deploy a simple test solution and its connectivity configuration:
 ```
 cd <DSI_DOCKER_GIT>/dsi-runtime/samples/simple
 ./solution_deploy.sh <DSI_HOME> localhost
@@ -156,7 +156,7 @@ Open the URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/, the 
 In order to create an entity `simple.Person`, an event `simple.CreatePerson`
 can be sent by using the Web API of the DSI runtime.
 
-The script `simple/create_person.sh` can be used:
+The script `create_person.sh` can be used:
 ```
 cd <DSI_DOCKER_GIT>/samples/simple
 ./create_person.sh localhost
