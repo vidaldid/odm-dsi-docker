@@ -27,7 +27,11 @@ fi
 
 cp ./create_person.xml /tmp/$$.tmp
 
-sed -i "s/ID/$PERSON/" /tmp/$$.tmp
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i'' -e "s/ID/$PERSON/" /tmp/$$.tmp
+else
+    sed -i "s/ID/$PERSON/" /tmp/$$.tmp
+fi
 
 URL=https://$DSI_HOSTNAME:9443/in/simple
 
