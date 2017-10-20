@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script is building the Docker image of DSI runtime.
-# It requires a Linux installation of ODM Insights v8.9.1.
+# It requires a Linux installation of ODM Insights v8.9.
 # The instructions are available at: https://github.com/ODMDev/odm-dsi-docker.
 
 set -e
