@@ -1,5 +1,4 @@
-# [[TITLE]]
-![Build Status]([[BUILD_STATUS_URL]])
+# ODM DSI Runtime on Docker
 
 # Issues and contributions
 For issues relating specifically to the Dockerfiles and scripts, please use the [GitHub issue tracker](../../issues).
