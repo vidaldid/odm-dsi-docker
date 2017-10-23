@@ -211,12 +211,12 @@ store the solutions.
 
 First, create a volume:
 ```sh
-docker volume create --name dsi-runtime-vol
+docker volume create --name dsi-runtime-volume
 ```
 
 Run a Docker container using this volume for storing the DSI files:
 ```sh
-docker run -p9443:9443 -v dsi-runtime-vol:/opt/dsi/runtime/wlp --name dsi-runtime dsi-runtime
+docker run -p9443:9443 -v dsi-runtime-volume:/opt/dsi/runtime/wlp --name dsi-runtime dsi-runtime
 ```
 
 #### Adding the solution in a Docker image
