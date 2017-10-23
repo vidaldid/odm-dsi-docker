@@ -35,16 +35,16 @@ In the following document:
 The Docker image can be produced by running the script 'build.sh' and
 requires to pass the path of the ODM installation directory as the first
 argument. For example:
-```
-cd <DSI_DOCKER_GIT>/dsi-runtime
-./build.sh <DSI_HOME>
+```sh
+cd $DSI_DOCKER_GIT/dsi-runtime
+./build.sh $DSI_HOME
 ```
 
 The output should end with:
 
-``
+```
 The docker image dsi-runtime has been created.
-``
+```
 
 It means that the Docker image `dsi-runtime` has been produced.
 The command `docker images` can be used to verify that the image is now listed in the local registry of Docker.
@@ -59,7 +59,7 @@ To use an officially supported JDK, the DSI runtime image must be build from a L
 ## Run a single DSI server with Docker
 
 To run a Docker container with the image build previously:
-```
+```sh
 docker run -p9443:9443 --name dsi-runtime dsi-runtime
 ```
 
@@ -82,7 +82,7 @@ When DSI is started, the output will be similar to:
 
 Start a DSI Runtime server:
 
-```
+```sh
 docker run -p9443:9443 --name dsi-runtime dsi-runtime
 ```
 
@@ -92,9 +92,9 @@ To deploy a solution and the connectivity configuration,
 the usual command line tools `solutionManager` and `connectivityManager` can be used.
 
 The script example `solution_deploy.sh` can be used to deploy a simple test solution and its connectivity configuration:
-```
-cd <DSI_DOCKER_GIT>/dsi-runtime/samples/simple
-./solution_deploy.sh <DSI_HOME> localhost
+```sh
+cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
+./solution_deploy.sh $DSI_HOME localhost
 ```
 
 The first argument is the path to the installation directory of DSI.
@@ -158,8 +158,8 @@ In order to create an entity `simple.Person`, an event `simple.CreatePerson`
 can be sent by using the Web API of the DSI runtime.
 
 The script `create_person.sh` can be used:
-```
-cd <DSI_DOCKER_GIT>/samples/simple
+```sh
+cd $DSI_DOCKER_GIT/samples/simple
 ./create_person.sh localhost
 ```
 
@@ -207,12 +207,12 @@ In order to avoid doing a redeployment of the solution, it can can be used to
 store the solutions.
 
 First, create a volume:
-```
+```sh
 docker volume create --name dsi-runtime-vol
 ```
 
 Run a Docker container using this volume for storing the DSI files:
-```
+```sh
 docker run -p9443:9443 -v dsi-runtime-vol:/opt/dsi/runtime/wlp --name dsi-runtime dsi-runtime
 ```
 
@@ -234,7 +234,7 @@ To add a new DSI configuration in the Docker image:
 When running the DSI Docker container, the name of the DSI configuration must
 be passed as the first argument of the startup script:
 
-```
+```sh
 docker run -p9443:9443 --name my-dsi-runtime /root/start.sh my-dsi-template
 ```
 
@@ -244,8 +244,8 @@ The directory `samples/cluster` contains an example of DSI cluster based on
 docker-compose. Used with Docker Swarm, it can be hosted on multiple servers.
 
 To start the DSI cluster:
-```
-cd <DSI_DOCKER_GIT>/dsi-runtime/samples/cluster
+```sh
+cd $DSI_DOCKER_GIT/dsi-runtime/samples/cluster
 docker-compose up
 ```
 
@@ -273,9 +273,9 @@ dsi-runtime-container2    | [AUDIT   ] CWMBD9738I: Backing store is available
 ```
 
 Deploy the "simple" solution:
-```
-cd <DSI_DOCKER_GIT>/dsi-runtime/samples/cluster
-./solution_deploy.sh <DSI_HOME>
+```sh
+cd $DSI_DOCKER_GIT/dsi-runtime/samples/cluster
+./solution_deploy.sh $DSI_HOME
 ```
 
 It will deploy the solution to all DSI runtimes and the connectivity to the DSI inbound
@@ -283,8 +283,8 @@ server. The HTTPS port of the first DSI runtime is bound to the port 9443 of the
 host.
 
 Then you can send an event using:
-```
-cd <DSI_DOCKER_GIT>/dsi-runtime/samples/cluster
+```sh
+cd $DSI_DOCKER_GIT/dsi-runtime/samples/cluster
 ./create_person.sh jeanfi
 ```
 
