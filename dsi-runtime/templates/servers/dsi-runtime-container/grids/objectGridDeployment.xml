@@ -4,7 +4,7 @@
 	xmlns="http://ibm.com/ws/objectgrid/deploymentPolicy">
 	<objectgridDeployment objectgridName="com.ibm.ia">
 		<!-- numInitialContainers to the number of JVMs being started -->
-		<mapSet name="iaMaps" numberOfPartitions="3" numInitialContainers="3" minSyncReplicas="0" maxSyncReplicas="1" maxAsyncReplicas="1" developmentMode="false">
+		<mapSet name="iaMaps" numberOfPartitions="7" numInitialContainers="3" minSyncReplicas="0" maxSyncReplicas="1" maxAsyncReplicas="0" developmentMode="false">
 			<map ref="DelayTimer.*" />
 			<map ref="JobDelayTimer.*" />
 			<map ref="EventQueue.*" />
