@@ -1,8 +1,7 @@
-# ODM DSI Runtime on Docker
+# Run ODM DSI Runtime on Docker
 
-## Build the Docker image
 
-### Prerequisites
+## Prerequisites
 
 All steps of the following document were tested with:
 * Ubuntu 16.04 LTS 64-bit
@@ -13,6 +12,8 @@ All steps of the following document were tested with:
 
 The creation of the Docker image requires to have an installation of IBM ODM
 Insights.
+
+## Build the Docker image
 
 ### Installation of the scripts
 
@@ -56,7 +57,7 @@ which might be different than the one officially supported by DSI Runtime.
 
 To use an officially supported JDK, the DSI runtime image must be build from a Linux installation directory.
 
-## Run a single DSI server with Docker
+## Run a single DSI runtime with Docker
 
 To run a Docker container with the image build previously:
 ```sh
