@@ -203,6 +203,8 @@ When a solution is deployed, it is stored by the DSI runtime on the file system.
 The Docker containers are stateless so in case of a restart, the solution has to
 be deployed again.
 
+#### Using Docker volumes
+
 The preferable way to persist data in docker is to use the volumes (<https://docs.docker.com/engine/admin/volumes/volumes/>).
 In order to avoid doing a redeployment of the solution, it can can be used to
 store the solutions.
@@ -215,6 +217,35 @@ docker volume create --name dsi-runtime-vol
 Run a Docker container using this volume for storing the DSI files:
 ```sh
 docker run -p9443:9443 -v dsi-runtime-vol:/opt/dsi/runtime/wlp --name dsi-runtime dsi-runtime
+```
+
+#### Adding the solution in a Docker image
+
+First, run a DSI runtime in a Docker container and bind the 9443 port:
+```sh
+docker run -p9443:9443 --name dsi-runtime dsi-runtime
+```
+
+Deploy the solution, for example to deploy the 'simple' solution:
+```sh
+cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
+./solution_deploy.sh $DSI_HOME localhost
+```
+
+Stop the DSI runtime in a clean way:
+```sh
+docker exec -ti dsi-runtime /opt/dsi/runtime/wlp/bin/server stop dsi-runtime
+```
+
+Create an image with the deployed solution:
+```sh
+docker commit dsi-runtime dsi-runtime-simple-sol
+```
+
+Now, you can run a container with the 'simple' solution by using the
+docker image created previously:
+```sh
+docker run -p9443:9443 dsi-runtime-simple-sol
 ```
 
 ### Change the default configuration of DSI
