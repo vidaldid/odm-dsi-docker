@@ -205,7 +205,7 @@ be deployed again.
 
 #### Using Docker volumes
 
-The preferable way to persist data in docker is to use the volumes (<https://docs.docker.com/engine/admin/volumes/volumes/>).
+The preferable way to persist data in docker is to use the volumes (https://docs.docker.com/engine/admin/volumes/volumes/).
 In order to avoid doing a redeployment of the solution, it can can be used to
 store the solutions.
 
@@ -321,7 +321,7 @@ cd $DSI_DOCKER_GIT/dsi-runtime/samples/cluster
 ```
 
 And finally, verify that it has created the entity, by opening with a browser the
-URL `https://localhost:9443/ibm/ia/rest/solutions/simple_solution/entity-types/simple.Person`.
+URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/entity-types/simple.Person.
 
 # Issues and contributions
 For issues relating specifically to the Dockerfiles and scripts, please use the [GitHub issue tracker](../../issues).
