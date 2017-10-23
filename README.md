@@ -9,6 +9,7 @@ All steps of the following document were tested with:
 * IBM ODM Insights V8.9.0
 * Docker 1.12.6
 * curl 7.47.0
+* docker-compose 1.8.0
 
 The creation of the Docker image requires to have an installation of IBM ODM
 Insights.
