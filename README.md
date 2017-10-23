@@ -199,19 +199,21 @@ Open the URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/entity
 ### Keep deployed solutions
 
 When a solution is deployed, it is stored by the DSI runtime on the file system.
-The Docker containers are stateless so in case of a restart, the solution has to be deployed again.
+The Docker containers are stateless so in case of a restart, the solution has to
+be deployed again.
 
-In order to avoid doing a redeployment of the solution, a Docker volume
-can be used to store the DSI data.
+The preferable way to persist data in docker is to use the volumes (<https://docs.docker.com/engine/admin/volumes/volumes/>).
+In order to avoid doing a redeployment of the solution, it can can be used to
+store the solutions.
 
 First, create a volume:
 ```
-docker volume create --name dsi-runtime
+docker volume create --name dsi-runtime-vol
 ```
 
-Run a Docker container using this volume for storing DSI files:
+Run a Docker container using this volume for storing the DSI files:
 ```
-docker run -p9443:9443 -v dsi-runtime:/opt/dsi/runtime/wlp --name dsi-runtime dsi-runtime
+docker run -p9443:9443 -v dsi-runtime-vol:/opt/dsi/runtime/wlp --name dsi-runtime dsi-runtime
 ```
 
 ### Change the default configuration of DSI
