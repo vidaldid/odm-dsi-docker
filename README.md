@@ -235,6 +235,59 @@ be passed as the first argument of the startup script:
 docker run -p9443:9443 --name my-dsi-runtime /root/start.sh my-dsi-template
 ```
 
+### Deploy a DSI cluster
+
+The directory `samples/cluster` contains an example of DSI cluster based on
+docker-compose. Used with Docker Swarm, it can be hosted on multiple servers.
+
+To start the DSI cluster:
+```
+cd <DSI_DOCKER_GIT>/dsi-runtime/samples/cluster
+docker-compose up
+```
+
+The topology of this cluster is using 1 catalog, 3 DSI runtimes, 1 inbound and 1
+outbound servers. It can be easily modified by changing the file `docker-compose.yaml`.
+
+Wait until the cluster is ready, the log should end with:
+```
+dsi-runtime-container2    | [AUDIT   ] CWMBD9737I: Waiting for backing store to become available
+dsi-runtime-container1    | [AUDIT   ] CWMBD0000I: IBM Decision Server Insights version 8.9.0.201710162214
+dsi-runtime-container3    | [AUDIT   ] CWMBD0000I: IBM Decision Server Insights version 8.9.0.201710162214
+dsi-runtime-container1    | [AUDIT   ] CWWKF0012I: The server installed the following features: [ia:iaRuntime-8.9.0, jsp-2.2, servlet-3.1, ia:iaRulesEngineApi-1.4.0, ssl-1.0, jndi-1.0, ia:iaCommon-8.9.0, eXtremeScale.client-1.1, ia:iaAnalytics-8.9.0, appSecurity-2.0, jaxrs-1.1, restConnector-1.0, blueprint-1.0, ia:iaGateway-8.9.0, json-1.0, eXtremeScale.server-1.1, distributedMap-1.0, wab-1.0, ia:iaDispatcher-8.9.0, ia:iaRulesEngine-1.30.2, ia:iaRulesEngine-1.40.3].
+dsi-runtime-container1    | [AUDIT   ] CWWKF0011I: The server dsi-runtime-container is ready to run a smarter planet.
+dsi-runtime-container3    | [AUDIT   ] CWWKF0012I: The server installed the following features: [ia:iaRuntime-8.9.0, jsp-2.2, servlet-3.1, ia:iaRulesEngineApi-1.4.0, ssl-1.0, jndi-1.0, ia:iaCommon-8.9.0, eXtremeScale.client-1.1, ia:iaAnalytics-8.9.0, appSecurity-2.0, jaxrs-1.1, restConnector-1.0, blueprint-1.0, ia:iaGateway-8.9.0, json-1.0, eXtremeScale.server-1.1, distributedMap-1.0, wab-1.0, ia:iaDispatcher-8.9.0, ia:iaRulesEngine-1.30.2, ia:iaRulesEngine-1.40.3].
+dsi-runtime-container3    | [AUDIT   ] CWWKF0011I: The server dsi-runtime-container is ready to run a smarter planet.
+dsi-runtime-container1    | [AUDIT   ] CWWKT0016I: Web application available (default_host): http://2165c0eef080:9080/ibm/ia/rest/
+dsi-runtime-container1    | [AUDIT   ] CWWKT0016I: Web application available (default_host): http://2165c0eef080:9080/IBMJMXConnectorREST/
+dsi-runtime-container3    | [AUDIT   ] CWWKT0016I: Web application available (default_host): http://aea79a14dc33:9080/ibm/ia/rest/
+dsi-runtime-container3    | [AUDIT   ] CWWKT0016I: Web application available (default_host): http://aea79a14dc33:9080/IBMJMXConnectorREST/
+dsi-runtime-outbound      | [WARNING ] CWMBD9684W: The following warning message is being suppressed. It has occurred 20 times in the last 20,074 milliseconds. Message: CWMBE2540W: The outbound queue monitor is currently unable to retrieve the list of active solutions. The grid state is "UNKNOWN".
+dsi-runtime-container2    | [AUDIT   ] CWMBD9737I: Waiting for backing store to become available
+dsi-runtime-container1    | [AUDIT   ] CWWKT0016I: Web application available (default_host): http://2165c0eef080:9080/ibm/insights/
+dsi-runtime-container3    | [AUDIT   ] CWWKT0016I: Web application available (default_host): http://aea79a14dc33:9080/ibm/insights/
+dsi-runtime-container2    | [AUDIT   ] CWMBD9738I: Backing store is available
+```
+
+Deploy the "simple" solution:
+```
+cd <DSI_DOCKER_GIT>/dsi-runtime/samples/cluster
+./solution_deploy.sh <DSI_HOME>
+```
+
+It will deploy the solution to all DSI runtimes and the connectivity to the DSI inbound
+server. The HTTPS port of the first DSI runtime is bound to the port 9443 of the
+host.
+
+Then you can send an event using:
+```
+cd <DSI_DOCKER_GIT>/dsi-runtime/samples/cluster
+./create_person.sh jeanfi
+```
+
+And finally, verify that it has created the entity, by opening with a browser the
+URL `https://localhost:9443/ibm/ia/rest/solutions/simple_solution/entity-types/simple.Person`.
+
 # Issues and contributions
 For issues relating specifically to the Dockerfiles and scripts, please use the [GitHub issue tracker](../../issues).
 We welcome contributions following [our guidelines](CONTRIBUTING.md).
