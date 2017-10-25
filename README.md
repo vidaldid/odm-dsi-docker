@@ -4,7 +4,7 @@
 ## Prerequisites
 
 All steps of the following document were tested with:
-* Ubuntu 16.04 LTS 64-bit
+* Ubuntu 16.04 LTS 64-bit and MacOS
 * IBM ODM Insights V8.9.0
 * Docker 1.12.6
 * curl 7.47.0
