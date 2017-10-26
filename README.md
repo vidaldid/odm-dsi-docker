@@ -27,6 +27,7 @@ Get the source files from Github over the SSH transfer protocol by typing:
 ``
 git clone https://github.com/ODMDev/odm-dsi-docker.git
 ``
+
 Note: You'll need an existing SSH key in your GitHub account to use for authentication.
 
 In the following document:
