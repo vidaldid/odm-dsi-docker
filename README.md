@@ -1,40 +1,43 @@
 # Run ODM DSI Runtime on Docker
 
-
 ## Prerequisites
 
-All steps of the following document were tested with:
-* Ubuntu 16.04 LTS 64-bit and MacOS
-* IBM ODM Insights V8.9.0
+You can use the provided materials on MacOS or Ubuntu 16.04 LTS 64-bit. And you can use any Linux VM with a recent version of Docker. 
+Before you start, make sure you have installed the following software:
+* IBM ODM Decision Server Insights V8.9.0
 * Docker 1.12.6
-* curl 7.47.0
-* docker-compose 1.8.0
+* Docker Compose 1.8.0
+* Curl 7.47.0
 
-The creation of the Docker image requires to have an installation of IBM ODM
-Insights.
+Note: To be able to create the Docker image you must have an installation of IBM ODM
+Decision Server Insights V8.9.0.
+
+OK, let's continue...
 
 ## Build the Docker image
 
-### Installation of the scripts
+### Install the scripts
 
 The source for this tutorial is available on Github in this
 GIT repository: https://github.com/ODMDev/odm-dsi-docker.
 
-To get the source:
+Change the current working directory to the location where you want the cloned directory to be made.
+Get the source files from Github over the SSH transfer protocol by typing:
 
 ``
 git clone https://github.com/ODMDev/odm-dsi-docker.git
 ``
 
+Note: You'll need an existing SSH key in your GitHub account to use for authentication.
+
 In the following document:
  * `DSI_DOCKER_GIT` designates the directory containing the working copy of
    this GIT repository.
- * `DSI_HOME` designates the directory containing the installation of ODM Insights.
+ * `DSI_HOME` designates the directory containing the installation of ODM DSI V8.9.0.
 
-### Creation of the Docker image
+### Create the Docker image
 
-The Docker image can be produced by running the script 'build.sh' and
-requires to pass the path of the ODM installation directory as the first
+The Docker image can be produced by running the script 'build.sh'. Pass the path of the ODM installation directory as the first
 argument. For example:
 ```sh
 cd $DSI_DOCKER_GIT/dsi-runtime
@@ -47,27 +50,25 @@ The output should end with:
 The docker image dsi-runtime has been created.
 ```
 
-It means that the Docker image `dsi-runtime` has been produced.
+This message means that the Docker image `dsi-runtime` has been produced.
 The command `docker images` can be used to verify that the image is now listed in the local registry of Docker.
 
-### MacOs
+### MacOS
 
-On MacOs the build of the image will use the IBM JDK from the 'ibmjava' image
-which might be different than the one officially supported by DSI Runtime.
+On MacOS the build of the image will use the IBM JDK from the 'ibmjava' image, which might be different to the one supported by DSI Runtime.
 
-To use an officially supported JDK, the DSI runtime image must be build from a Linux installation directory.
+To make sure you use a supported JDK, build the DSI runtime image from a Linux installation directory.
 
 ## Run a single DSI runtime with Docker
 
-To run a Docker container with the image build previously:
 ```sh
 docker run -p9443:9443 --name dsi-runtime dsi-runtime
 ```
 
-The name of the Docker container will be `dsi-runtime` and the port `9443` of
-the DSI web api will be bind to the port `9443` of the host.
+The name of the Docker container is `dsi-runtime` and the port `9443` of
+the DSI REST API is bound to port `9443` of the host.
 
-When DSI is started, the output will be similar to:
+When DSI is started, the output ends with the following lines:
 ```
 [AUDIT   ] CWWKF0011I: The server dsi-runtime is ready to run a smarter planet.
 [AUDIT   ] CWWKT0016I: Web application available (default_host): http://58de6092c19c:9080/ibm/ia/debug/
@@ -79,20 +80,13 @@ When DSI is started, the output will be similar to:
 
 ## Test a DSI Runtime running in Docker
 
-### Start a DSI Runtime
-
-Start a DSI Runtime server:
-
-```sh
-docker run -p9443:9443 --name dsi-runtime dsi-runtime
-```
-
 ### Deploy a solution
 
 To deploy a solution and the connectivity configuration,
 the usual command line tools `solutionManager` and `connectivityManager` can be used.
 
-The script example `solution_deploy.sh` can be used to deploy a simple test solution and its connectivity configuration:
+The sample script `solution_deploy.sh` can also be used to deploy a simple test solution and its connectivity configuration.
+In a separate command shell to the one you used to run the DSI container:
 ```sh
 cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
 ./solution_deploy.sh $DSI_HOME localhost
@@ -112,7 +106,7 @@ CWMBE1498I: Number of active inbound endpoints: 1
 CWMBE1499I: Number of active outbound endpoints: 0
 ```
 
-In the DSI runtime console it should display:
+The DSI runtime console should display a message about the solution:
 ```
 [AUDIT   ] CWWKG0017I: The server configuration was successfully updated in 0.407 seconds.
 [AUDIT   ] CWWKF0012I: The server installed the following features: [usr:simple_solution-0.0].
@@ -128,7 +122,9 @@ In the DSI runtime console it should display:
 
 ### Check that the solution is deployed
 
-Open the URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/, the content should be similar to:
+Open the URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/.
+
+The REST command returns the following data:
 
 ```xml
 <object type="com.ibm.ia.admin.solution.Solution">
@@ -155,8 +151,7 @@ Open the URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/, the 
 
 ### Send an event
 
-In order to create an entity `simple.Person`, an event `simple.CreatePerson`
-can be sent by using the Web API of the DSI runtime.
+To create an entity of the type `simple.Person`, and an event of type `simple.CreatePerson` send REST API calls to the DSI runtime.
 
 The script `create_person.sh` can be used:
 ```sh
@@ -168,9 +163,11 @@ The first argument is the hostname of the DSI runtime.
 
 ### View the created entity
 
-The event sent previously will create an entity 'simple.Person'.
+The sent event creates an entity instance of 'simple.Person'.
 
-Open the URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/entity-types/simple.Person, the content should be similar to:
+Open the URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/entity-types/simple.Person.
+
+The REST command returns the following data:
 
 ```xml
 <object xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ibm.com/ia/Entity" type="Collection[simple.Person]">
@@ -197,42 +194,25 @@ Open the URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/entity
 
 ## Advanced usage of Docker
 
-### Keep deployed solutions
+#### Create a Docker volume
 
-When a solution is deployed, it is stored by the DSI runtime on the file system.
-The Docker containers are stateless so in case of a restart, the solution has to
-be deployed again.
+The preferred way to persist data in docker is to use volumes (https://docs.docker.com/engine/admin/volumes/volumes/).
 
-#### Using Docker volumes
-
-The preferable way to persist data in docker is to use the volumes (https://docs.docker.com/engine/admin/volumes/volumes/).
-In order to avoid doing a redeployment of the solution, it can can be used to
-store the solutions.
+To avoid the need to redeploy a solution after a container is restarted, a Docker volume can be used to store the DSI data.
 
 First, create a volume:
 ```sh
 docker volume create --name dsi-runtime-volume
 ```
 
-Run a Docker container using this volume for storing the DSI files:
+Run a Docker container using this volume to store the DSI files:
 ```sh
 docker run -p9443:9443 -v dsi-runtime-volume:/opt/dsi/runtime/wlp --name dsi-runtime dsi-runtime
 ```
 
-#### Adding the solution in a Docker image
+#### Add a deployed solution to a Docker image
 
-First, run a DSI runtime in a Docker container and bind the 9443 port:
-```sh
-docker run -p9443:9443 --name dsi-runtime dsi-runtime
-```
-
-Deploy the solution, for example to deploy the 'simple' solution:
-```sh
-cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
-./solution_deploy.sh $DSI_HOME localhost
-```
-
-Stop the DSI runtime in a clean way:
+Stop the running DSI runtime in a clean way:
 ```sh
 docker exec -ti dsi-runtime /opt/dsi/runtime/wlp/bin/server stop dsi-runtime
 ```
@@ -243,23 +223,21 @@ docker commit dsi-runtime dsi-runtime-simple-sol
 ```
 
 Now, you can run a container with the 'simple' solution by using the
-docker image created previously:
+docker image you created:
 ```sh
 docker run -p9443:9443 dsi-runtime-simple-sol
 ```
 
 ### Change the default configuration of DSI
 
-Depending on the usage, it might be required to use another configuration than
-the default one.
+Depending on your needs, you might want to use another DSI configuration.
 
-It is possible to add multiple DSI configurations in the same Docker image.
-Each configuration has to be added in a separate sub-directory
- in the directory `<DSI_DOCKER_GIT>/templates/servers`.
+It is possible to add multiple DSI configurations to the same Docker image.
+Each configuration has to be added in a separate sub-directory under the directory `<DSI_DOCKER_GIT>/templates/servers`.
 
 To add a new DSI configuration in the Docker image:
  * Copy the files in `<DSI_DOCKER_GIT>/templates/servers/dsi-runtime`
-   to for example `<DSI_DOCKER_GIT>/templates/servers/my-dsi-template`
+   to a new directory, for example `<DSI_DOCKER_GIT>/templates/servers/my-dsi-template`
  * Edit the files in `<DSI_DOCKER_GIT>/templates/servers/my-dsi-template`.
  * Rebuild the Docker image using the script `<DSI_DOCKER_GIT>/builds.sh`.
 
@@ -270,10 +248,12 @@ be passed as the first argument of the startup script:
 docker run -p9443:9443 --name my-dsi-runtime /root/start.sh my-dsi-template
 ```
 
-### Deploy a DSI cluster
+### Start and test a DSI cluster
 
-The directory `samples/cluster` contains an example of DSI cluster based on
-docker-compose. Used with Docker Swarm, it can be hosted on multiple servers.
+The directory `samples/cluster` contains an example of a DSI cluster based on
+Docker Compose. Used with Docker Swarm, the cluster can be hosted on multiple servers.
+The topology of the sample cluster is using 1 catalog server, 3 runtime servers, 1 inbound and 1
+outbound server. It can be modified by changing the file `docker-compose.yaml`.
 
 To start the DSI cluster:
 ```sh
@@ -281,10 +261,7 @@ cd $DSI_DOCKER_GIT/dsi-runtime/samples/cluster
 docker-compose up
 ```
 
-The topology of this cluster is using 1 catalog, 3 DSI runtimes, 1 inbound and 1
-outbound servers. It can be easily modified by changing the file `docker-compose.yaml`.
-
-Wait until the cluster is ready, the log should end with:
+Wait until the cluster is ready, the output should end with:
 ```
 dsi-runtime-container2    | [AUDIT   ] CWMBD9737I: Waiting for backing store to become available
 dsi-runtime-container1    | [AUDIT   ] CWMBD0000I: IBM Decision Server Insights version 8.9.0.201710162214
@@ -310,9 +287,8 @@ cd $DSI_DOCKER_GIT/dsi-runtime/samples/cluster
 ./solution_deploy.sh $DSI_HOME
 ```
 
-It will deploy the solution to all DSI runtimes and the connectivity to the DSI inbound
-server. The HTTPS port of the first DSI runtime is bound to the port 9443 of the
-host.
+The command deploys the solution to all the DSI runtimes and the connectivity to the DSI inbound
+server. The HTTPS port of the first DSI runtime is bound to the port 9443 of the host.
 
 Then you can send an event using:
 ```sh
@@ -320,7 +296,7 @@ cd $DSI_DOCKER_GIT/dsi-runtime/samples/cluster
 ./create_person.sh jeanfi
 ```
 
-And finally, verify that it has created the entity, by opening with a browser the
+Finally, verify that it has created the entity, by opening a browser and entering the
 URL https://localhost:9443/ibm/ia/rest/solutions/simple_solution/entity-types/simple.Person.
 
 # Issues and contributions
