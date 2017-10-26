@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 RUN apt-get update
-RUN apt-get dist-upgrade
+RUN apt-get -y dist-upgrade
 
 COPY opt /opt
 
