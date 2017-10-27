@@ -89,11 +89,12 @@ The sample script `solution_deploy.sh` can also be used to deploy a simple test 
 In a separate command shell to the one you used to run the DSI container:
 ```sh
 cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
-./solution_deploy.sh $DSI_HOME localhost
+./solution_deploy.sh $DSI_HOME localhost port
 ```
 
 The first argument is the path to the installation directory of DSI.
 The second argument is the hostname of the DSI runtime.
+The third argument is the port of the DSI Runtime.
 
 The output of the command line should be similar to:
 ```
