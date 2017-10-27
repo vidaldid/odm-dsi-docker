@@ -211,6 +211,12 @@ Run a Docker container using this volume to store the DSI files:
 docker run -p9443:9443 -v dsi-runtime-volume:/opt/dsi/runtime/wlp --name dsi-runtime dsi-runtime
 ```
 
+Deploy the solution in the running container:
+```sh
+cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
+./solution_deploy.sh $DSI_HOME localhost port
+```
+
 #### Add a deployed solution to a Docker image
 
 Stop the running DSI runtime in a clean way:
