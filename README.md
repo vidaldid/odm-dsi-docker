@@ -89,7 +89,7 @@ The sample script `solution_deploy.sh` can also be used to deploy a simple test 
 In a separate command shell to the one you used to run the DSI container:
 ```sh
 cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
-./solution_deploy.sh $DSI_HOME localhost port
+./solution_deploy.sh $DSI_HOME localhost 9443
 ```
 
 The first argument is the path to the installation directory of DSI.
@@ -214,7 +214,7 @@ docker run -p9443:9443 -v dsi-runtime-volume:/opt/dsi/runtime/wlp --name dsi-run
 Deploy the solution in the running container:
 ```sh
 cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
-./solution_deploy.sh $DSI_HOME localhost port
+./solution_deploy.sh $DSI_HOME localhost 9443
 ```
 
 #### Add a deployed solution to a Docker image
