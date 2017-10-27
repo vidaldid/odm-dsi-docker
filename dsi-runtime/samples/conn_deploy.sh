@@ -1,10 +1,14 @@
 #!/bin/bash
 
-# This script deploys the solution simple and the associated connectivity
-# configuration.
+# This script deploys the connectivity configuration.
 #
-# The first argument is the installation directory of ODM Insights
-# The second argument is the hostname of the DSI Runtime.
+# USAGE: $0 <DSI_HOME> <DSI_HOSTNAME> <DSI_PORT> <ESA> <CONFIG_XML>
+
+# DSI_HOME is the installation directory of ODM Insights
+# DSI_HOSTNAME is the hostname of the DSI Runtime.
+# DSI_PORT is the port of the DSI Runtime.
+# ESA the path to the .esa file of the solution
+# CONFIG_XML the path to the configuration file of the solution connectivity.
 
 set -e
 
