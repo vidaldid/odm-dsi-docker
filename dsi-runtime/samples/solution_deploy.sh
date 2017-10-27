@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# This script deploys the solution simple and the associated connectivity
-# configuration.
+# This script deploys a DSI solution to a DSI runtime server.
 #
 # The first argument is the installation directory of ODM Insights
 # The second argument is the hostname of the DSI Runtime.
