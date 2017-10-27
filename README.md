@@ -195,7 +195,12 @@ The REST command returns the following data:
 
 ## Advanced usage of Docker
 
-#### Create a Docker volume
+### Persist deployed solutions
+
+As docker containers are stateless, deployed solutions in containers are not persisted.
+Following, two different ways to persist the solutions.
+
+#### Keep deployed solution in a Docker volume
 
 The preferred way to persist data in docker is to use volumes (https://docs.docker.com/engine/admin/volumes/volumes/).
 
@@ -217,7 +222,20 @@ cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
 ./solution_deploy.sh $DSI_HOME localhost 9443
 ```
 
-#### Add a deployed solution to a Docker image
+The solution is now in the volume and can be used by another container.
+
+#### Creation of a docker image with a deployed solution
+
+Run a Docker container:
+```sh
+docker run -p9443:9443 dsi-runtime
+```
+
+Deploy the solution in the running container:
+```sh
+cd $DSI_DOCKER_GIT/dsi-runtime/samples/simple
+./solution_deploy.sh $DSI_HOME localhost 9443
+```
 
 Stop the running DSI runtime in a clean way:
 ```sh
