@@ -56,11 +56,15 @@ cp -rp "$SRC_DIR/templates" "$BUILD_DIR_DSI_RUNTIME/wlp"
 echo "Copying docker container start script to $BUILD_DIR"
 cp "$SRC_DIR/start.sh" "$BUILD_DIR"
 
-echo "Copying DockerFile to $BUILD_DIR"
 if [[ "$OSTYPE" == "darwin"* ]]; then
         cp "$SRC_DIR/Dockerfile.darwin" "$BUILD_DIR"/Dockerfile
 else
+        echo "Use default dockerfile"
         cp "$SRC_DIR/Dockerfile" "$BUILD_DIR"
+        if [[ "$DSI_USEOPENJDK" == "1" ]]; then
+                echo "Use openjdk instead of IBM JDK"
+                sed -i 's/ubuntu:latest/openjdk:8/' "$BUILD_DIR/Dockerfile"
+        fi
 fi
 
 docker build -t "$DOCKER_IMAGE_NAME" "$BUILD_DIR"

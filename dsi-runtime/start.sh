@@ -9,7 +9,11 @@ set -e
 
 DSI_HOME="/opt/dsi"
 
-export JAVA_HOME="$DSI_HOME/jdk/jre"
+if [ -z "$JAVA_HOME" ]; then
+        export JAVA_HOME="$DSI_HOME/jdk/jre"
+fi
+
+echo "JAVA_HOME=$JAVA_HOME"
 export PATH=$JAVA_HOME/bin:$PATH
 
 if [ -z "$1" ]; then
