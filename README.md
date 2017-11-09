@@ -280,6 +280,8 @@ Docker Compose. Used with Docker Swarm, the cluster can be hosted on multiple se
 The topology of the sample cluster is using 1 catalog server, 3 runtime servers, 1 inbound and 1
 outbound server. It can be modified by changing the file `docker-compose.yaml`.
 
+On MacOS, the default docker daemon setting is 2 CPUs with 2 GB of memory. This setting is insufficient to run the DSI cluster. Make sure that you set to a higher value. For example, 6 CPUs with 12 GB of memory if your machine has the capability. The setting can be modified at Docker > Preferences... > Advanced section.
+
 To start the DSI cluster:
 ```sh
 cd $DSI_DOCKER_GIT/dsi-runtime/samples/cluster
