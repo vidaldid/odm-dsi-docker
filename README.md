@@ -35,7 +35,7 @@ git clone https://github.com/ODMDev/odm-dsi-docker.git
 In the following document:
  * `DSI_DOCKER_GIT` designates the directory containing the working copy of
    this GIT repository.
- * `DSI_HOME` designates the directory containing the installation of ODM DSI V8.9.0.
+ * `DSI_HOME` designates the directory containing the installation of ODM DSI V8.9.1.
 
 ### Create the Docker image
 
