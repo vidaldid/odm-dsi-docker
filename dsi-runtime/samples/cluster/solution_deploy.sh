@@ -10,7 +10,7 @@ function get_ip {
         echo `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $1`
 }
 
-function get_mac_port {
+function get_host_port {
         echo `docker inspect -f '{{ (index (index .NetworkSettings.Ports "9443/tcp") 0).HostPort }}' $1`
 }
 
@@ -34,21 +34,19 @@ INBOUND=`get_ip dsi-runtime-inbound`
 echo "CONTAINER1=$CONTAINER1"
 echo "CONTAINER2=$CONTAINER2"
 echo "CONTAINER3=$CONTAINER3"
-echo "INBOUND =$INBOUND"
-
+echo "INBOUND=$INBOUND"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-	CONTAINER1_PORT=`get_mac_port dsi-runtime-container1`
-	CONTAINER2_PORT=`get_mac_port dsi-runtime-container2`
-	CONTAINER3_PORT=`get_mac_port dsi-runtime-container3`
-	INBOUND_PORT=`get_mac_port dsi-runtime-inbound`
+	CONTAINER1_PORT=`get_host_port dsi-runtime-container1`
+	CONTAINER2_PORT=`get_host_port dsi-runtime-container2`
+	CONTAINER3_PORT=`get_host_port dsi-runtime-container3`
+	INBOUND_PORT=`get_host_port dsi-runtime-inbound`
 
     echo "CONTAINER1_PORT=$CONTAINER1_PORT"
     echo "CONTAINER2_PORT=$CONTAINER2_PORT"
     echo "CONTAINER3_PORT=$CONTAINER3_PORT"
     echo "INBOUND_PORT=$INBOUND_PORT"
 fi
-
 
 SOL_DEPLOY="$SRC_DIR/../solution_deploy.sh"
 
@@ -62,11 +60,9 @@ else
 	$SOL_DEPLOY $DSI_HOME $CONTAINER3 9443 $ESA
 fi
 
-
 echo "calling connectivity deploy to inbound"
 
 CONN_DEPLOY="$SRC_DIR/../conn_deploy.sh"
-
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	$CONN_DEPLOY $DSI_HOME localhost $INBOUND_PORT $ESA $INCONN
