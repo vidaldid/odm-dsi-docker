@@ -11,6 +11,8 @@ services:
                 command: ["/root/start.sh", "dsi-runtime-container", "dsi-runtime-catalog"]
                 ports:
                         - "9443:9443"
+                depends_on:
+                        - dsi-runtime-catalog
 
         dsi-runtime-container2:
                 container_name: dsi-runtime-container2
@@ -18,6 +20,8 @@ services:
                 command: ["/root/start.sh", "dsi-runtime-container", "dsi-runtime-catalog"]
                 ports:
                         - "9444:9443"
+                depends_on:
+                        - dsi-runtime-catalog
 
         dsi-runtime-container3:
                 container_name: dsi-runtime-container3
@@ -25,6 +29,8 @@ services:
                 command: ["/root/start.sh", "dsi-runtime-container", "dsi-runtime-catalog"]
                 ports:
                         - "9445:9443"
+                depends_on:
+                        - dsi-runtime-catalog
 
         dsi-runtime-inbound:
                 container_name: dsi-runtime-inbound
@@ -33,6 +39,8 @@ services:
                 ports:
                         - "9090:9080"
                         - "9450:9443"
+                depends_on:
+                        - dsi-runtime-catalog
 
         dsi-runtime-outbound:
                 container_name: dsi-runtime-outbound
@@ -41,3 +49,5 @@ services:
                 ports:
                         - "9091:9080"
                         - "9451:9443"
+                depends_on:
+                        - dsi-runtime-catalog

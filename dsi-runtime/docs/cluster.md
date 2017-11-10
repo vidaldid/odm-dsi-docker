@@ -4,7 +4,7 @@
 
 You can use the provided materials on MacOS or Ubuntu 16.04 LTS 64-bit. And you can use any Linux VM with a recent version of Docker. Before you start, make sure you have installed the following software:
 
-* IBM ODM Decision Server Insights V8.9.0
+* IBM ODM Decision Server Insights V8.9.1
 * Docker 1.12.6
 * Docker Compose 1.8.0
 * Curl 7.47.0
