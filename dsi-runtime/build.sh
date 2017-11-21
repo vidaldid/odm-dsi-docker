@@ -56,8 +56,8 @@ rm -rf "$BUILD_DIR_DSI_RUNTIME/wlp/usr/extension/lib"
 if [ -z "$DSI_TEMPLATES" ]; then
         DSI_TEMPLATES="$SRC_DIR/templates"
 fi
-echo "Copying DSI configuration templates from $DSI_TEMPLATES"
-cp -rp "$DSI_TEMPLATES" "$BUILD_DIR_DSI_RUNTIME/wlp"
+echo "Copying DSI configuration templates from $DSI_TEMPLATES to $BUILD_DIR_DSI_RUNTIME/wlp/templates"
+cp -rp $DSI_TEMPLATES/servers "$BUILD_DIR_DSI_RUNTIME/wlp/templates/"
 
 echo "Copying docker container start script to $BUILD_DIR"
 cp "$SRC_DIR/start.sh" "$BUILD_DIR"
