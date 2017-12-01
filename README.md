@@ -9,6 +9,7 @@ Before you start, make sure you have installed the following software:
 * [IBM ODM Decision Server Insights V8.9.1](https://www.ibm.com/support/knowledgecenter/en/SSQP76_8.9.1/com.ibm.odm.itoa/topics/odm_itoa.html)
 * [Docker 1.12.6](https://www.docker.com/what-docker)
 * Curl 7.47.0
+* Docker Compose 1.17.0
 
 Note: To be able to create the Docker image you must have an installation of IBM ODM
 Decision Server Insights V8.9.1.
@@ -55,6 +56,9 @@ The command `docker images` can be used to verify that the image is now listed i
 ### MacOS
 
 On MacOS the build of the image will use the IBM JDK from the 'ibmjava' image, which might be different to the one supported by DSI Runtime.
+
+The name of this image will be dsi-runtime-ibmjava instead of dsi-runtime, it will
+require to update accordingly the scripts and commands for running a DSI container.
 
 To make sure you use a supported JDK, build the DSI runtime image from a Linux installation directory.
 
