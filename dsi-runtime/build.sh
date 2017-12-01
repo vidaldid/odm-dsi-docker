@@ -39,7 +39,7 @@ mkdir -p "$BUILD_DIR_DSI_RUNTIME"
 echo "Copying DSI from $DSI_HOME_RUNTIME to $BUILD_DIR_DSI_RUNTIME."
 cp -rp "$DSI_HOME_RUNTIME/"* "$BUILD_DIR_DSI_RUNTIME"
 
-if [[ "$OSTYPE" != "darwin"* ]]; then
+if [[ "$OSTYPE" != "darwin"* ]] && [[ "$OSTYPE" != "cygwin" ]]; then
         echo "Copying JDK to $BUILD_DIR_DSI."
         cp -rp "$DSI_HOME/jdk" "$BUILD_DIR_DSI"
 else

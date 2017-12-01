@@ -1,9 +1,6 @@
 # Run ODM DSI Runtime on Docker
 
-This document explains how to run easily a single DSI Runtime on Docker.
-
-For more advanced usage like running a cluster of DSI Runtimes on Docker,
-see the [additional documentation](dsi-runtime/docs).
+This page shows you how to run a single DSI Runtime on Docker. For some additional usage scenarios, like creating a volume to persist your solutions, see the [advance.md](dsi-runtime/docs/advance.md) documentation.
 
 ## Prerequisites
 
