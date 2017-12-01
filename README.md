@@ -12,6 +12,7 @@ Before you start, make sure you have installed the following software:
 * [IBM ODM Decision Server Insights V8.9.1](https://www.ibm.com/support/knowledgecenter/en/SSQP76_8.9.1/com.ibm.odm.itoa/topics/odm_itoa.html)
 * [Docker 1.12.6](https://www.docker.com/what-docker)
 * Curl 7.47.0
+* Docker Compose 1.17.0
 
 Note: To be able to create the Docker image you must have an installation of IBM ODM
 Decision Server Insights V8.9.1.
