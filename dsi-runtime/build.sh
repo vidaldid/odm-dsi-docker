@@ -46,10 +46,8 @@ else
         DSI_IMAGE="dsi-runtime-ibmjava"
 fi
 
-echo "Removing $BUILD_DIR_DSI_RUNTIME/wlp/usr/servers/"
+echo "Cleanup DSI installation"
 rm -rf "$BUILD_DIR_DSI_RUNTIME/wlp/usr/servers/"
-
-echo "Removing $BUILD_DIR_DSI_RUNTIME/wlp/usr/extension/lib"
 rm -rf "$BUILD_DIR_DSI_RUNTIME/wlp/usr/extension/lib"
 
 if [ -z "$DSI_TEMPLATES" ]; then
