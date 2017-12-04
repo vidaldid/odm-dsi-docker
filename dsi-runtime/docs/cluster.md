@@ -6,7 +6,7 @@ You can use the provided materials on MacOS or Ubuntu 16.04 LTS 64-bit. And you 
 
 * IBM ODM Decision Server Insights V8.9.1
 * Docker 17.09
-* Docker Compose 1.8.0
+* Docker Compose 1.17
 * Curl 7.47.0
 * A Docker image of the DSI runtime, see instructions in the section
   "Build the Docker Image" of the [Run ODM DSI Runtime on Docker documentation](../../README.md).
