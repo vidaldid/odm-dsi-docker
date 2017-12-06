@@ -10,7 +10,7 @@
 set -e
 
 function print_usage {
-        echo "USAGE: $0 <DSI_HOME>"
+        echo "USAGE: $0 <DSI_HOME> <DSI_IMAGE>"
 }
 
 if [ -z "$1" ]; then
@@ -39,11 +39,15 @@ mkdir -p "$BUILD_DIR_DSI_RUNTIME"
 echo "Copying DSI from $DSI_HOME_RUNTIME to $BUILD_DIR_DSI_RUNTIME."
 cp -rp "$DSI_HOME_RUNTIME/"* "$BUILD_DIR_DSI_RUNTIME"
 
-if [[ "$OSTYPE" != "darwin"* ]] && [[ "$OSTYPE" != "cygwin" ]]; then
-        echo "Copying JDK to $BUILD_DIR_DSI."
-        cp -rp "$DSI_HOME/jdk" "$BUILD_DIR_DSI"
+if [ -z "$2" ]; then
+        if [[ "$OSTYPE" != "darwin"* ]] && [[ "$OSTYPE" != "cygwin" ]]; then
+                echo "Copying JDK to $BUILD_DIR_DSI."
+                cp -rp "$DSI_HOME/jdk" "$BUILD_DIR_DSI"
+        else
+                DSI_IMAGE="dsi-runtime-ibmjava"
+        fi
 else
-        DSI_IMAGE="dsi-runtime-ibmjava"
+        DSI_IMAGE="$2"
 fi
 
 echo "Cleanup DSI installation"
