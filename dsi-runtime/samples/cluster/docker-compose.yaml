@@ -3,7 +3,7 @@ services:
         dsi-runtime-catalog:
                 container_name: dsi-runtime-catalog
                 image: $DSI_IMG
-                command: ["/root/start.sh", "cisCatalog"]
+                command: ["/root/start.sh", "dsi-runtime-catalog"]
 
         dsi-runtime-container1:
                 container_name: dsi-runtime-container1
@@ -41,6 +41,9 @@ services:
                         - "9450:9443"
                 depends_on:
                         - dsi-runtime-catalog
+                        - dsi-runtime-container1
+                        - dsi-runtime-container2
+                        - dsi-runtime-container3
 
         dsi-runtime-outbound:
                 container_name: dsi-runtime-outbound
@@ -51,3 +54,6 @@ services:
                         - "9451:9443"
                 depends_on:
                         - dsi-runtime-catalog
+                        - dsi-runtime-container1
+                        - dsi-runtime-container2
+                        - dsi-runtime-container3
