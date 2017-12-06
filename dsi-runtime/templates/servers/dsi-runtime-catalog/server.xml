@@ -1,0 +1,88 @@
+<!-- 
+# Licensed Materials - Property of IBM
+#
+# "Restricted Materials of IBM"
+#
+# Copyright IBM Corp. 2013, 2016 All Rights Reserved.
+#
+# US Government Users Restricted Rights - Use, duplication or
+# disclosure restricted by GSA ADP Schedule Contract with
+# IBM Corp.
+-->
+<server description="CIS Catalog Server">
+
+    <featureManager>
+        <feature>appSecurity-2.0</feature>
+        <feature>restConnector-1.0</feature>
+        <feature>ssl-1.0</feature>
+        <feature>eXtremeScale.client-1.1.0</feature>
+        <feature>eXtremeScale.server-1.1.0</feature>
+    </featureManager>
+
+    <logging
+        traceSpecification="*=info"
+        maxFiles="5" />
+
+    <httpEndpoint
+        id="defaultHttpEndpoint"
+        host="*"
+        httpPort="${http.port}"
+        httpsPort="${https.port}" />
+
+    <xsServer
+        catalogServer="true"
+        enableQuorum="false"
+        catalogClusterEndpoints="${ia.clusterEndpoints}"
+        listenerPort="${ia.listenerPort}"
+        transport="XIO"
+        serverName="${ia.serverName}"/>
+
+    <serverCommands
+        startServerTimeout="120"
+        stopServerTimeout="120" />
+
+    <ssl id="defaultSSLConfig"
+        keyStoreRef="defaultKeyStore"
+        sslProtocol="TLSv1.2" />
+
+	<!-- *TODO* Add only when using collectives. For more information see http://www.ibm.com/support/knowledgecenter/SSEQTP_8.5.5/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/twlp_sec_nist.html
+   
+    <ssl id="controllerConnectionConfig"
+        sslProtocol="TLSv1.2"/>
+
+    <ssl id="memberConnectionConfig"
+        sslProtocol="TLSv1.2"/>
+
+    -->
+    
+    <!-- *TODO* Add SSL configuration including a key store and
+                optionally a trust store. For example:
+    
+    <keyStore
+        id="defaultKeyStore"
+        password="*INSERT_ENCODED_PASSWORD*" />
+    
+    -->
+
+    <!-- *TODO* Add basic or LDAP user registry configuration.
+                For example:
+    
+    <basicRegistry id="basic" realm="*INSERT_REALM_NAME*">
+        <user name="*INSERT_USER_NAME*" password="*INSERT_ENCODED_PASSWORD*"/>
+        <group name="*INSERT_GROUP_NAME*">
+            <member name="*INSERT_USER_NAME*"/>
+        </group>
+    </basicRegistry>
+    
+    -->
+
+    <!-- *TODO* Configure authorization roles for server administration.
+                For example:
+    
+    <administrator-role>
+        <group>*INSERT_GROUP_NAME*</group>
+    </administrator-role>
+    
+    -->
+
+</server>
