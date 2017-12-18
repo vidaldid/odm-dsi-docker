@@ -26,7 +26,6 @@ if [ ! -d "$DSI_HOME_RUNTIME" ]; then
         exit 1
 fi
 
-DOCKER_IMAGE_NAME="dsi-runtime"
 BUILD_DIR="build"
 BUILD_DIR_DSI="$BUILD_DIR/opt/dsi"
 BUILD_DIR_DSI_RUNTIME="$BUILD_DIR_DSI/runtime"
@@ -43,11 +42,7 @@ if [ -z "$2" ]; then
         if [[ "$OSTYPE" != "darwin"* ]] && [[ "$OSTYPE" != "cygwin" ]]; then
                 echo "Copying JDK to $BUILD_DIR_DSI."
                 cp -rp "$DSI_HOME/jdk" "$BUILD_DIR_DSI"
-        else
-                DSI_IMAGE="dsi-runtime-ibmjava"
         fi
-else
-        DSI_IMAGE="$2"
 fi
 
 echo "Cleanup DSI installation"
@@ -65,4 +60,13 @@ cp "$SRC_DIR/start.sh" "$BUILD_DIR"
 
 cp "$SRC_DIR/Dockerfile" "$BUILD_DIR"
 
-docker-compose build $DSI_IMAGE
+if [ -z "$2" ]; then
+        if [[ "$OSTYPE" != "darwin"* ]] && [[ "$OSTYPE" != "cygwin" ]]; then
+                docker-compose build
+        else
+                docker-compose build dsi-runtime-ibmjava
+                docker-compose build dsi-runtime-openjdk
+        fi
+else
+        docker-compose build "$2"
+fi
