@@ -34,7 +34,6 @@ INTERNAL_IP=`hostname -I| sed 's/ //g'`
 
 if [ ! -f "$SRV_XML" ]; then
         echo "Create the DSI server $DSI_TEMPLATE"
-        echo "JAVA_HOME=$JAVA_HOME" > /opt/dsi/runtime/wlp/etc/server.env
         /opt/dsi/runtime/wlp/bin/server create $DSI_TEMPLATE --template=$DSI_TEMPLATE || echo "$DSI_TEMPLATE was already created"
         echo "WLP server $DSI_TEMPLATE has been created"
 
